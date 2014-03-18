@@ -18,8 +18,7 @@ public class Satunnaisgeneraattori {
     
     public double generoiExp(double lambda) {
         // metodi generoi eksponenttijakaumaa noudattavan satunnaismuuttujan.
-        // lambda on jakauman parametri, sattumoisin myös odotusarvo
-        return (Math.log(Math.random()) - Math.log(lambda))/(-lambda);
+        return -Math.log(Math.random())/lambda;
     }
     
     public int generoiPoisson(double lambda) {
@@ -48,8 +47,16 @@ public class Satunnaisgeneraattori {
     
     public double generoiNormaali(double myy) {
         // metodi generoi yksiparametrista normaalijakaumaa seuraavan 
-        // satunnaismuuttujan
-        return 0;
+        // satunnaismuuttujan Box-Muller menetelmän avulla
+        
+        double u = Math.random();
+        double v = Math.random();
+        double x = Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+        // täytyy olla aika kova luu että heti näkee ton seuraavan standardi normaalijakaumaa, 
+        // mutta wikipedian mukaan näin on asian laita
+            
+        
+        return x+myy;
     }
     
     public double generoiGamma() {
