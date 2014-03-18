@@ -11,3 +11,5 @@ to 13.3. 1h kirjoitin aihemäärittelyn
 pe 14.3. 1h kirjoitin ohjelman alkua
 
 su 16.3. 30min kirjoitin lisää ohjelmaa ja pohdin luokkia
+
+ti 18.3. 1h kirjoitin ensimmaisia testeja, korjasin satunnaisgeneraattoria
