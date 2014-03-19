@@ -5,20 +5,20 @@ import java.io.*;
 
 public class TiedostonKasittelija {
 // luokan tehtavana on tuottaa tiedostoja aineistosta
+// oon vähän ns. kujalla tän kanssa    
     
     
-    
-    public void tulostaAineistoTiedostoon(String tiedostonimi, double[] aineisto) {
+    public void tulostaAineistoTiedostoon(File tiedosto, double[] aineisto) {
         
-        PrintWriter tulos;
+        FileWriter tulostin;
         
         try {
-            tulos = new PrintWriter(new FileWriter(tiedostonimi));
+            tulostin = new FileWriter(tiedosto);
             for (int i = 0; i < aineisto.length; i++) {
                 String tulostus = "" + aineisto[i];
-                tulos.append(tulostus + ";");
+                tulostin.append(tulostus + ";");
             }
-            tulos.close();
+            tulostin.close();
         }
         
         catch (IOException e) {

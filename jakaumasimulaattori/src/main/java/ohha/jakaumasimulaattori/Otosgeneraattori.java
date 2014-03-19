@@ -14,7 +14,7 @@ public class Otosgeneraattori {
         for (int i = 0; i < n; i++) {
             palautettava[i] = satunnaisgeneraattori.generoiBernoulli(p);
         } 
-        return new double[1];
+        return palautettava;
     }
     
     public double[] eksponenttiAineisto(int n, double lambda) {

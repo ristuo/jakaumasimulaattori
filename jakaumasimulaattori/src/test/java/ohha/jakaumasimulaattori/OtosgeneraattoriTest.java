@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class OtosgeneraattoriTest {
     
     Otosgeneraattori otosgeneraattori;
+    TunnuslukuLaskuri laskuri = new TunnuslukuLaskuri();
     
     public OtosgeneraattoriTest() {
     }
@@ -23,6 +24,26 @@ public class OtosgeneraattoriTest {
         otosgeneraattori = new Otosgeneraattori();
     }
     
+    @Test 
+    public void binomiAineistonKarvoOnOikein() {
+        double[] aineisto = otosgeneraattori.binomiAineisto(1000, 0.3);
+        boolean testi = true;
+        if (Math.abs(laskuri.laskeSumma(aineisto)-300)>50) {
+            testi = false;
+        }
+       
+        assertTrue(testi);
+    }
+    
+    public void onkoNormaalijakaumanKarvoOikea() {
+        double[] aineisto = otosgeneraattori.normaaliAineisto(1000, 5, 0.1);
+        boolean testi = true;
+        if (Math.abs(laskuri.laskeKeskiarvo(aineisto)-5) > 0.1) {
+            testi = false;
+        }
+        
+        assertTrue(testi);
+    }
     
     @Test
     public void onkoEksponenttiAineistollaOikeaKeskiarvo() {
@@ -47,10 +68,7 @@ public class OtosgeneraattoriTest {
         
     }
     
-    @Test
-    public void onkoPoissonAineistollaOikeaKeskiarvo() {
-       
-    }
+  
     
     
 }

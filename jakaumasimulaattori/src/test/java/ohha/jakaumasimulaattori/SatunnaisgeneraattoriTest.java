@@ -46,8 +46,11 @@ public class SatunnaisgeneraattoriTest {
         assertTrue(testi);
     }
     
+    @Test public void bernoulliToimiiRajatapauksessa() {
+        assertEquals(1,satunnaisgeneraattori.generoiBernoulli(1),0.001);
+    }
     
-    
+   
     
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

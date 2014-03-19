@@ -20,6 +20,9 @@ public class TunnuslukuLaskuri {
         return summa/n;
     }
     
+    public double laskeSumma(double[] aineisto) {
+        return this.laskeKeskiarvo(aineisto)*aineisto.length;
+    }
     
     public double laskeOtoskeskihajonta(double[] aineisto) {
         //metodi laskee harhattoman estimaatin keskihajonnalle
@@ -33,7 +36,11 @@ public class TunnuslukuLaskuri {
         return Math.sqrt(neliosumma/(n-1));        
     }
     
-   public double laskeTtestisuure(double[] aineisto){
-       return 0;
+    public double laskeBinomiAineistonOtoskeskihajona(double[] aineisto) {
+           return this.laskeKeskiarvo(aineisto)*(1-this.laskeKeskiarvo(aineisto))/aineisto.length;
+    }
+    
+   public double laskeTtestisuure(double[] aineisto, double h0){
+       return Math.sqrt(aineisto.length)*(h0-this.laskeKeskiarvo(aineisto))/this.laskeOtoskeskihajonta(aineisto);
    }
 }

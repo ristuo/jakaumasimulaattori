@@ -16,8 +16,16 @@ public class App
 //        }
 //        
         System.out.println(tuksu.laskeKeskiarvo(otos.poissonAineisto(2700,3.5)));
+        double[] aineisto = otos.binomiAineisto(1000, 0.3);
+        System.out.println(tuksu.laskeKeskiarvo(aineisto));
         
+        double summa = 0;
+        for (int i = 0; i <= 10; i++) {
+            summa = summa+aineisto[i];
+            System.out.println(sat.generoiBernoulli(0.3));
+        }
         
+        System.out.println(summa);
 //        Satunnaisgeneraattori satunnaisgeneraattori = new Satunnaisgeneraattori();
 //        System.out.println(satunnaisgeneraattori.generoiNormaali(5.5,1));
     }

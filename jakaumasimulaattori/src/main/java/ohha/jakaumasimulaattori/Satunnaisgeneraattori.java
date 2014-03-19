@@ -8,7 +8,7 @@ public class Satunnaisgeneraattori {
     
     
     
-    public int generoiBernoulli(double p) {
+    public double generoiBernoulli(double p) {
         // metodi generoi yhden bernoulli(p)-satunnaismuuttujan
         if (Math.random() < p) {        
             return 1;
@@ -91,8 +91,19 @@ public class Satunnaisgeneraattori {
         return x+myy;
     }
     
-    public double generoiGamma() {
-        return 0;
+    public double generoiGamma(double alfa, double beta) {
+        // Metodi generoi gamma-jakaumaa seuraavan satunnaismuuttujan Marsaglian ja Tsangin menetelmällä
+        double d = alfa - 1/3;
+        double c = 1/Math.sqrt(9*d);
+        double u = Math.random();
+        double z = this.generoiNormaali(0);
+        double v = Math.pow(1+c*z, 3);
+        
+        if (z > -1/c && Math.log(u) < 0.5*Math.pow(z,2)+d-d*v+d*Math.log(v)) {
+            return d*v;
+        }
+        else return this.generoiGamma(alfa, beta);
+        
     }
     
     
