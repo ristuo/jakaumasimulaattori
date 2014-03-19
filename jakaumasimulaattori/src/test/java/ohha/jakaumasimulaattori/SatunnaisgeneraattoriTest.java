@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package ohha.jakaumasimulaattori;
 
@@ -13,37 +8,34 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author rtuomainen
- */
 public class SatunnaisgeneraattoriTest {
     
     Satunnaisgeneraattori satunnaisgeneraattori;
     
     public SatunnaisgeneraattoriTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+       
     @Before
     public void setUp() {
         satunnaisgeneraattori = new Satunnaisgeneraattori();
     }
     
-    @After
-    public void tearDown() {
-    }
 
+    @Test
+    public void normaaliJakaumaGeneroiMielekkaitaArvoja() {
+        double x = satunnaisgeneraattori.generoiNormaali(5.5,0.5);
+        boolean testi = true;
+        
+        if (Math.abs(x-5.5) > 2) {
+            testi = false;
+        }
+       
+        assertTrue(testi);
+    }
+    
     
     @Test
-    public void PoissonGeneraattoriPalauttaaPositiivisiaArvoja() {
+    public void poissonGeneraattoriPalauttaaPositiivisiaArvoja() {
         int x = satunnaisgeneraattori.generoiPoisson(2.5);
         boolean testi = true;
         
@@ -53,6 +45,7 @@ public class SatunnaisgeneraattoriTest {
         
         assertTrue(testi);
     }
+    
     
     
     

@@ -10,7 +10,7 @@ public class Satunnaisgeneraattori {
     
     public int generoiBernoulli(double p) {
         // metodi generoi yhden bernoulli(p)-satunnaismuuttujan
-        if (Math.random() > p) {        
+        if (Math.random() < p) {        
             return 1;
         }
         else return 0;
@@ -38,11 +38,43 @@ public class Satunnaisgeneraattori {
         return i;        
     }
     
+    private double normaalinTiheysfunktionArvoKohdassaX(double myy, double sigma, double x) {
+        return 1/(Math.sqrt((2*Math.PI))*sigma)*Math.exp(-0.5*(Math.pow((x-myy)/sigma,2)));
+    }
+    
     public double generoiNormaali(double myy, double sigma) {
         // metodi generoi kahden parametrin normaalijakaumaa
-        // seuraavan satunnaismuuttujan
+        // seuraavan satunnaismuuttujan.
+        // Tässä käytetään rejection sampling -menetelmää äärimmäisen tehottomasti
+        // toteutettuna.
+        // Ajatuksena on laskea satunnaisia pisteitä xy-koordinaatistosta ja sitten
+        // hylätä ne, jotka eivät ole normaalijakauman määräämässä alueessa. nythän
+        // hännistä jää osa jakaumaa ulos, mutta se ei haittaa, koska todennäköisyys
+        // muutenkaan saada mitään lukuja sieltä on niin pieni
         
-        return 0;
+        
+        double korkein = this.normaalinTiheysfunktionArvoKohdassaX(myy, sigma, myy);
+        double suorakulmionKorkeus = korkein;
+        double suorakulmionLeveys = 7*sigma;
+        double x = 0;
+        double y = 27;
+        double fx = 0;
+        
+        while (y > fx) {
+            
+            x = Math.random()*suorakulmionLeveys + myy;
+            fx = this.normaalinTiheysfunktionArvoKohdassaX(myy, sigma, x);
+            y = Math.random()*suorakulmionKorkeus;
+            
+        }      
+        
+        // tämä if siksi, että muuttujan x arvoja on laskettu vain keskiarvon oikealta 
+        // puolen
+      
+        if (Math.random() > 0.5) {
+            return myy-Math.abs(myy-x);
+        }       
+        return x;
     }
     
     public double generoiNormaali(double myy) {
@@ -52,7 +84,7 @@ public class Satunnaisgeneraattori {
         double u = Math.random();
         double v = Math.random();
         double x = Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
-        // täytyy olla aika kova luu että heti näkee ton seuraavan standardi normaalijakaumaa, 
+        // täytyy olla aika kova luu että heti näkee ton seuraavan standardinormaalijakaumaa, 
         // mutta wikipedian mukaan näin on asian laita
             
         

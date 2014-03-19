@@ -29,6 +29,27 @@ public class Otosgeneraattori {
         
     }
     
+    public double[] normaaliAineisto(int n, double myy, double sigma) {
+        // luo normaalijakaumaa seuraavan aineiston
+       
+        double[] palautettava = new double[n];
+        
+        for (int i = 0; i < n; i++) {
+            palautettava[i] = satunnaisgeneraattori.generoiNormaali(myy,sigma);
+        }
+        
+        return palautettava;
+    }
     
-    
+    public double[] poissonAineisto(int n, double lambda) {
+        // luo Poisson-jakautuneen aineiston
+        
+        
+        double[] palautettava = new double[n];
+        
+        for (int i = 0; i < n; i++) {
+            palautettava[i] = satunnaisgeneraattori.generoiPoisson(lambda);
+        }
+        return palautettava;
+    }
 }

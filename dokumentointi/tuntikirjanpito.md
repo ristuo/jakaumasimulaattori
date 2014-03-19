@@ -13,3 +13,6 @@ pe 14.3. 1h kirjoitin ohjelman alkua
 su 16.3. 30min kirjoitin lisää ohjelmaa ja pohdin luokkia
 
 ti 18.3. 1h kirjoitin ensimmaisia testeja, korjasin satunnaisgeneraattoria
+
+ke 19.3. 2h kirjoitin lisää testejä, tein normaalijakaumageneraattorin
+
