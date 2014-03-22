@@ -17,3 +17,5 @@ ti 18.3. 1h kirjoitin ensimmaisia testeja, korjasin satunnaisgeneraattoria
 ke 19.3. 2.5h kirjoitin lisää testejä, tein normaalijakaumageneraattorin
 
 ke 19.3. 1.5h testailin toimintoja (kaikki paskana), virittelin koodia ja kirjoitin hieman uutta
+
+la 22.3. 2,5h kirjoitin hieman uutta tekstia, aloitin käyttöliittymää, lannistuin ja aloin lukemaan kirjaa joka kertoo miten tehdä käyttöliittymä, sekä korjasin pieniä ongelmia koodissa
