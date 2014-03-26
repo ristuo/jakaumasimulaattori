@@ -6,10 +6,10 @@ public class Otosgeneraattori {
     
     Satunnaisgeneraattori satunnaisgeneraattori = new Satunnaisgeneraattori();
     
-    public double[] binomiAineisto(int n, double p) {
+    public int[] binomiAineisto(int n, double p) {
         // muodostaa aineiston, joka siis koostuu useasta Bernoulli-havainnosta
         
-        double[] palautettava = new double[n];
+        int[] palautettava = new int[n];
         
         for (int i = 0; i < n; i++) {
             palautettava[i] = satunnaisgeneraattori.generoiBernoulli(p);
@@ -50,6 +50,16 @@ public class Otosgeneraattori {
         for (int i = 0; i < n; i++) {
             palautettava[i] = satunnaisgeneraattori.generoiPoisson(lambda);
         }
+        return palautettava;
+    }
+    
+    public double[] gammaAineisto(int n, double alfa, double beta) {
+        double[] palautettava = new double[n];
+        
+        for (int i = 0; i < n; i++) {
+            palautettava[i] = satunnaisgeneraattori.generoiGamma(alfa, beta);
+        }
+        
         return palautettava;
     }
 }

@@ -8,22 +8,16 @@ public class TiedostonKasittelija {
 // oon vähän ns. kujalla tän kanssa    
     
     
-    public void tulostaAineistoTiedostoon(File tiedosto, double[] aineisto) {
+    public void tulostaAineistoTiedostoonCSV(File tiedosto, double[] aineisto) throws IOException {
         
         FileWriter tulostin;
         
-        try {
             tulostin = new FileWriter(tiedosto);
             for (int i = 0; i < aineisto.length; i++) {
-                String tulostus = "" + aineisto[i];
-                tulostin.append(tulostus + ";");
+                String tulostus = "" + aineisto[i] + ";";
+                tulostin.write(tulostus);
             }
             tulostin.close();
-        }
-        
-        catch (IOException e) {
-            System.out.println("Ei pysty");
-        }
         
     }
 }

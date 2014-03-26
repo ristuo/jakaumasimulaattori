@@ -26,7 +26,7 @@ public class OtosgeneraattoriTest {
     
     @Test 
     public void binomiAineistonKarvoOnOikein() {
-        double[] aineisto = otosgeneraattori.binomiAineisto(1000, 0.3);
+        int[] aineisto = otosgeneraattori.binomiAineisto(1000, 0.3);
         boolean testi = true;
         if (Math.abs(laskuri.laskeSumma(aineisto)-300)>50) {
             testi = false;

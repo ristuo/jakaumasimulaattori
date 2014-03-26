@@ -19,3 +19,9 @@ ke 19.3. 2.5h kirjoitin lisää testejä, tein normaalijakaumageneraattorin
 ke 19.3. 1.5h testailin toimintoja (kaikki paskana), virittelin koodia ja kirjoitin hieman uutta
 
 la 22.3. 2,5h kirjoitin hieman uutta tekstia, aloitin käyttöliittymää, lannistuin ja aloin lukemaan kirjaa joka kertoo miten tehdä käyttöliittymä, sekä korjasin pieniä ongelmia koodissa
+
+ma 24.3. 5h aloitin käyttöliittymän tekemistä
+
+ti 25.3. 1h luin käyttöliittymän tekemiseen liittyvää kirjaa
+
+ke 26.3. 2h poistin siihen asti tekemäni käyttöliittymän ja aloitin uudestaan

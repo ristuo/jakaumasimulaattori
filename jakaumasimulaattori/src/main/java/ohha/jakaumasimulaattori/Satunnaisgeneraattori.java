@@ -8,7 +8,7 @@ public class Satunnaisgeneraattori {
     
     
     
-    public double generoiBernoulli(double p) {
+    public int generoiBernoulli(double p) {
         // metodi generoi yhden bernoulli(p)-satunnaismuuttujan
         if (Math.random() < p) {        
             return 1;
@@ -100,7 +100,7 @@ public class Satunnaisgeneraattori {
         double v = Math.pow(1+c*z, 3);
         
         if (z > -1/c && Math.log(u) < 0.5*Math.pow(z,2)+d-d*v+d*Math.log(v)) {
-            return d*v;
+            return d*v/beta;
         }
         else return this.generoiGamma(alfa, beta);
         

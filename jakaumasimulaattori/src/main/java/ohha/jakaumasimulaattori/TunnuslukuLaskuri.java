@@ -20,7 +20,23 @@ public class TunnuslukuLaskuri {
         return summa/n;
     }
     
+     public double laskeKeskiarvo(int[] aineisto){
+        // laskee otoskeskiarvon
+        double summa = 0;
+        double n = aineisto.length;
+        
+        for (int i = 0; i < n; i++) {
+            summa += aineisto[i];
+        }
+        
+        return summa/n;
+    }
+    
     public double laskeSumma(double[] aineisto) {
+        return this.laskeKeskiarvo(aineisto)*aineisto.length;
+    }
+    
+    public double laskeSumma(int[] aineisto) {
         return this.laskeKeskiarvo(aineisto)*aineisto.length;
     }
     
@@ -36,11 +52,13 @@ public class TunnuslukuLaskuri {
         return Math.sqrt(neliosumma/(n-1));        
     }
     
-    public double laskeBinomiAineistonOtoskeskihajona(double[] aineisto) {
+    public double laskeBinomiAineistonOtoskeskihajona(int[] aineisto) {
            return this.laskeKeskiarvo(aineisto)*(1-this.laskeKeskiarvo(aineisto))/aineisto.length;
     }
     
    public double laskeTtestisuure(double[] aineisto, double h0){
        return Math.sqrt(aineisto.length)*(h0-this.laskeKeskiarvo(aineisto))/this.laskeOtoskeskihajonta(aineisto);
    }
+   
+   
 }
