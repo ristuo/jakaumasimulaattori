@@ -45,6 +45,7 @@ public class TunnuslukuLaskuriTest {
         
     }
     
+    @Test
     public void karvoLaskuriSuhtautuuNegatiivisiinLukuihin() {
         double[] aineisto = new double[2];
         aineisto[0] = -40;
@@ -53,15 +54,18 @@ public class TunnuslukuLaskuriTest {
         assertEquals(tuksu.laskeKeskiarvo(aineisto),-10,0.001);
     }
     
+    @Test
     public void hajontaLaskuriAntaaOikeitaLukuja() {
         double[] aineisto = new double[20];
         for (int i = 0; i < 20; i++) {
             aineisto[i] = i+1;
         }
         
-       assertEquals(tuksu.laskeOtoskeskihajonta(aineisto),5.91,0.0001);
+       assertEquals(tuksu.laskeOtoskeskihajonta(aineisto),5.91,0.01);
     }
     
+    
+    @Test
     public void hajontaLaskuriHoitaaNegatiiviset() {
         double[] aineisto = new double[20];
         double k = -10;
@@ -70,7 +74,7 @@ public class TunnuslukuLaskuriTest {
             aineisto[i] = k+(i+1);
         }
         
-       assertEquals(tuksu.laskeOtoskeskihajonta(aineisto),5.91,0.0001);
+       assertEquals(tuksu.laskeOtoskeskihajonta(aineisto),5.91,0.01);
     }
     
     

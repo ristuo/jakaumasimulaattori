@@ -14,7 +14,7 @@ public class TunnuslukuLaskuri {
         double n = aineisto.length;
         
         for (int i = 0; i < n; i++) {
-            summa += aineisto[i];
+            summa = summa + aineisto[i];
         }
         
         return summa/n;
@@ -26,9 +26,9 @@ public class TunnuslukuLaskuri {
         double n = aineisto.length;
         
         for (int i = 0; i < n; i++) {
-            summa += aineisto[i];
+            summa = summa + (double)aineisto[i];
         }
-        
+       
         return summa/n;
     }
     
@@ -46,10 +46,21 @@ public class TunnuslukuLaskuri {
         double neliosumma = 0;
         
         for (int i = 0; i < n; i++) {
-            neliosumma += Math.pow(2, aineisto[i]-this.laskeKeskiarvo(aineisto));
+            neliosumma += Math.pow(aineisto[i]-this.laskeKeskiarvo(aineisto),2);
         }
         
         return Math.sqrt(neliosumma/(n-1));        
+    }
+    
+    public double laskeOtoskeskihajonta(int[] aineisto) {
+        double n = aineisto.length;
+        double neliosumma = 0;
+        
+        for (int i = 0; i < n; i++) {
+            neliosumma += Math.pow((double)aineisto[i] - this.laskeKeskiarvo(aineisto), 2);
+        }
+        
+        return Math.sqrt(neliosumma/(n-1));
     }
     
     public double laskeBinomiAineistonOtoskeskihajona(int[] aineisto) {

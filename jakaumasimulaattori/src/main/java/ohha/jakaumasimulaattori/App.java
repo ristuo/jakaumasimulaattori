@@ -39,7 +39,13 @@ public class App
             System.out.println("ei toimi");
         }
         
-        Kayttoliittyma kali = new Kayttoliittyma();
-        kali.run();
+        double[] aineisto2 = otos.poissonAineisto(10000, 0.5);
+        System.out.println("poissonin keskiarvo"+tuksu.laskeKeskiarvo(aineisto2));
+//        Kayttoliittyma kali = new Kayttoliittyma();
+//        kali.run();
+        System.out.println("keskihajonta" + tuksu.laskeOtoskeskihajonta(aineisto));
+        for (int i = 0; i <= 99; i++) {
+            System.out.println(aineisto2[i]);
+        }
     }
 }

@@ -35,6 +35,7 @@ public class OtosgeneraattoriTest {
         assertTrue(testi);
     }
     
+    @Test
     public void onkoNormaalijakaumanKarvoOikea() {
         double[] aineisto = otosgeneraattori.normaaliAineisto(1000, 5, 0.1);
         boolean testi = true;
@@ -44,6 +45,8 @@ public class OtosgeneraattoriTest {
         
         assertTrue(testi);
     }
+    
+    
     
     @Test
     public void onkoEksponenttiAineistollaOikeaKeskiarvo() {
@@ -68,7 +71,30 @@ public class OtosgeneraattoriTest {
         
     }
     
-  
+    @Test
+    public void onkoPoissonAineistollaOikeaKeskiarvo() {
+        double[] aineisto = otosgeneraattori.poissonAineisto(10000, 0.5);
+        double x = laskuri.laskeKeskiarvo(aineisto);
+        
+        boolean testi = true;
+       
+        if (Math.abs(x - 0.5) > 0.1) {
+            testi=false;
+        }
+        
+        assertTrue(testi);
+    }
+    
+    @Test
+    public void onkoPoissonAineistollaOikeaOtoskeskihajonta() {
+        double[] aineisto = otosgeneraattori.poissonAineisto(10000, 0.5);
+        double x = Math.pow(laskuri.laskeOtoskeskihajonta(aineisto),2);
+        boolean testi = true;
+        if (Math.abs(x-0.5) > 0.1) {
+            testi=false;
+        }
+        assertTrue(testi);
+    }
     
     
 }
