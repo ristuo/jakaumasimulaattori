@@ -33,3 +33,6 @@ ti 1.4. 3h kirjoitin käyttöliittymää, luulo menestyksestä osoittautui virhe
 ke 2.4. 5h kirjoitin lisää käyttöliittymää, joka selviää tähän asti ylivoimaisista ongelmista
 
 ke 2.4. 1,5 kirjoitin käyttöliittymää. ohjelman perustoiminnallisuus toimii olennaisilta osin GUI:n kautta
+
+ke 2.4. 1h tutkailin javadoc-hommia ja aloitin niitä. kirjoitin vähän käyttöliittymää
+
