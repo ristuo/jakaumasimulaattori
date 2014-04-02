@@ -25,3 +25,9 @@ ma 24.3. 5h aloitin käyttöliittymän tekemistä
 ti 25.3. 1h luin käyttöliittymän tekemiseen liittyvää kirjaa
 
 ke 26.3. 2h poistin siihen asti tekemäni käyttöliittymän ja aloitin uudestaan
+
+ma 31.3. 1,5h kirjoitin käyttöliittymää, paremmalla menestyksellä tällä kertaa
+
+ti 1.4. 3h kirjoitin käyttöliittymää, luulo menestyksestä osoittautui virheelliseksi ja aloitin uudestaan alusta.
+
+ke 2.4. 5h kirjoitin lisää käyttöliittymää, joka selviää tähänasti ylivoimaisista ongelmista
