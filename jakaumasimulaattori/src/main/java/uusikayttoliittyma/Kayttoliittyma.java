@@ -28,4 +28,11 @@ public class Kayttoliittyma implements Runnable {
     }
     
   
+    public void tyhjaa() {
+        jakaumanValintakehys.getContentPane().removeAll();
+        jakaumanValintakehys.getContentPane().repaint();
+        kehysAsettelija.luoRaporttiKehys(jakaumanValintakehys);
+        jakaumanValintakehys.getContentPane().repaint();
+        jakaumanValintakehys.repaint();
+    }
 }

@@ -1,5 +1,6 @@
 
 package uusikayttoliittyma;
+import ohha.jakaumasimulaattori.*;
 import java.util.*;
 import java.awt.Container;
 import java.awt.BorderLayout;
@@ -16,36 +17,43 @@ import java.awt.event.*;
 
 public class ParametrienValintakuuntelija implements ActionListener {
     
+    private Otosgeneraattori otosgeneraattori = new Otosgeneraattori();
     private JTextField myy;
     private JTextField sigma;
     private JTextField lambda;
     private JTextField alfa;
     private JTextField beta;
-    private JTextField n;
     private JTextField p;
     private JTextField otoskoko;
     private JButton ok;
-    private JButton tiedosto;
+    private JButton tiedosto;   
     private File tallennustiedosto;
     private KehysAsettelija kehysAsettelija;
     private boolean onkoTiedostoa = false;
     private JakaumanValintakuuntelija jakaumanValintakuuntelija;
     
+    
     public ParametrienValintakuuntelija(JTextField myy, JTextField sigma, JTextField lambda, 
-            JTextField alfa, JTextField beta, JTextField n, JTextField p, JTextField otoskoko, KehysAsettelija kehysAsettelija) {
+            JTextField alfa, JTextField beta, JTextField p, JTextField otoskoko, KehysAsettelija kehysAsettelija) {
         this.myy = myy;
         this.sigma = sigma;
         this.lambda = lambda;
         this.alfa = alfa;
         this.beta = beta;
         this.otoskoko = otoskoko;
-        this.n = n;
+
         this.p = p;        
         this.kehysAsettelija = kehysAsettelija;
     }
     
     
     public void actionPerformed(ActionEvent ae) {
+        
+        double parametri1;
+        double parametri2;
+        int otoksenkoko = 0;
+        double[] aineisto = null;
+        TiedostonKasittelija tiedostonKasittelija = new TiedostonKasittelija();
         
         if (jakaumanValintakuuntelija.onkoJakaumaa()) {
             this.ok.setEnabled(true);
@@ -62,6 +70,85 @@ public class ParametrienValintakuuntelija implements ActionListener {
             }
             else onkoTiedostoa = false;
         }    
+        
+        if (ae.getSource() == ok) {
+            
+            
+            
+            try {
+                otoksenkoko = Integer.parseInt(otoskoko.getText()); 
+            }
+            
+            catch (Exception e) {
+                
+            }
+            
+            
+            if (jakaumanValintakuuntelija.getValittuButton().equals("normaali")) {
+                try { 
+                    parametri1 = Double.parseDouble(myy.getText());
+                    parametri2 = Double.parseDouble(sigma.getText());
+                    
+                    aineisto = otosgeneraattori.normaaliAineisto(otoksenkoko, parametri1, parametri2);
+                    tiedostonKasittelija.tulostaAineistoTiedostoonCSV(tallennustiedosto, aineisto);
+                }
+                catch (Exception e) {
+                    System.out.println("Hälytys! paska syöte!");
+                }
+                
+            }
+            
+            if (jakaumanValintakuuntelija.getValittuButton().equals("eksponentti")) {
+                try {
+                    parametri1 = Double.parseDouble(lambda.getText());
+                    
+                    aineisto = otosgeneraattori.eksponenttiAineisto(otoksenkoko, parametri1);
+                    
+                }
+                
+                catch (Exception e) {
+                    
+                }
+            }
+            
+            if (jakaumanValintakuuntelija.getValittuButton().equals("binomi")) {
+                try {
+                    parametri1 = Double.parseDouble(p.getText());                    
+                    aineisto = otosgeneraattori.binomiAineisto(otoksenkoko, parametri1);
+                }
+                
+                catch (Exception e) {
+                    
+                }
+            }
+            
+            if (jakaumanValintakuuntelija.getValittuButton().equals("gamma")) {
+                try {
+                    parametri1 = Double.parseDouble(alfa.getText());
+                    parametri2 = Double.parseDouble(beta.getText());
+                    aineisto = otosgeneraattori.gammaAineisto(otoksenkoko, parametri1, parametri2);
+               
+                }
+                
+                catch (Exception e) {
+                    
+                }
+            }
+            
+            
+            
+            try {
+                tiedostonKasittelija.tulostaAineistoTiedostoonCSV(tallennustiedosto, aineisto);
+                kehysAsettelija.setAineisto(aineisto);
+                kehysAsettelija.tyhjaa();
+                
+            }
+            
+            catch (Exception e) {
+                
+            }
+            
+        }
     }
     
     
@@ -88,7 +175,6 @@ public class ParametrienValintakuuntelija implements ActionListener {
     }
     
     public void asetaBinomi() {
-        this.n.setEnabled(true);
         this.p.setEnabled(true);
     }
     
@@ -98,7 +184,6 @@ public class ParametrienValintakuuntelija implements ActionListener {
         this.sigma.setEnabled(false);
         this.alfa.setEnabled(false);
         this.beta.setEnabled(false);
-        this.n.setEnabled(false);
         this.p.setEnabled(false);
     }
     

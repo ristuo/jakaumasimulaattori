@@ -8,7 +8,7 @@ public class Satunnaisgeneraattori {
     
     
     
-    public int generoiBernoulli(double p) {
+    public double generoiBernoulli(double p) {
         // metodi generoi yhden bernoulli(p)-satunnaismuuttujan
         if (Math.random() < p) {        
             return 1;

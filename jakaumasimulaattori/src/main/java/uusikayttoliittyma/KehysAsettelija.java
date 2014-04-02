@@ -1,6 +1,7 @@
 
 
 package uusikayttoliittyma;
+import ohha.jakaumasimulaattori.*;
 import java.util.*;
 import java.awt.Container;
 import java.awt.BorderLayout;
@@ -21,6 +22,8 @@ public class KehysAsettelija {
     private Valintakuuntelija valintakuuntelija;
     private JakaumanValintakuuntelija jakaumanValintakuuntelija;
     private ParametrienValintakuuntelija parametrienValintakuuntelija;
+    private double[] aineisto;
+    private TunnuslukuLaskuri tunnuslukulaskuri = new TunnuslukuLaskuri();
     
     public KehysAsettelija(Kayttoliittyma kayttoliittyma, JFrame jakaumanValintakehys, Valintakuuntelija valintakuuntelija) {
         this.kayttoliittyma=kayttoliittyma;
@@ -99,36 +102,24 @@ public class KehysAsettelija {
         JTextField beta = new JTextField("\u03B2");
         beta.setEnabled(false);
         
-        JTextField n = new JTextField("n");
-        n.setEnabled(false);
-        
+
         JTextField p = new JTextField("p");
         p.setEnabled(false);
         
         JTextField otoskoko = new JTextField("Otoskoko");
         otoskoko.setEnabled(true);
         
-        parametriPaneeli.add(new JLabel("Valitse jakauman parametrit"));
-    
-        parametriPaneeli.add(myy);
-    
-        parametriPaneeli.add(sigma);
-    
-        parametriPaneeli.add(lambda);
-     
-        parametriPaneeli.add(alfa);
-    
-        parametriPaneeli.add(beta);
-   
-
-        parametriPaneeli.add(n);
-        
-        parametriPaneeli.add(p);
-        
+        parametriPaneeli.add(new JLabel("Valitse jakauman parametrit"));    
+        parametriPaneeli.add(myy);    
+        parametriPaneeli.add(sigma);    
+        parametriPaneeli.add(lambda);     
+        parametriPaneeli.add(alfa);    
+        parametriPaneeli.add(beta);      
+        parametriPaneeli.add(p);        
         parametriPaneeli.add(otoskoko);
         
         
-        this.parametrienValintakuuntelija = new ParametrienValintakuuntelija(myy,sigma,lambda,alfa,beta, n, p, otoskoko, this);
+        this.parametrienValintakuuntelija = new ParametrienValintakuuntelija(myy,sigma,lambda,alfa,beta, p, otoskoko, this);
         this.jakaumanValintakuuntelija.asetaParametrienValintaKuuntelija(parametrienValintakuuntelija);
         this.parametrienValintakuuntelija.setJakaumanValintakuuntelija(jakaumanValintakuuntelija);
         myy.addActionListener(parametrienValintakuuntelija);
@@ -140,6 +131,12 @@ public class KehysAsettelija {
         return parametriPaneeli;
     }
     
+    public void luoRaporttiKehys(JFrame raporttiKehys) {
+        Container container = raporttiKehys.getContentPane();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.add(new JLabel("Keskiarvo: " +tunnuslukulaskuri.laskeKeskiarvo(aineisto)));
+        container.add(new JLabel("Otoskeskihajonta: "+tunnuslukulaskuri.laskeOtoskeskihajonta(aineisto)));
+    }
     
     private JPanel luoTiedostoJaOKNappulat() {
         JPanel tiedostoJaOK = new JPanel();
@@ -163,5 +160,14 @@ public class KehysAsettelija {
     
     public JFrame getFrame() {
         return this.jakaumanValintakehys;
+    }
+    
+    public void tyhjaa() {
+        kayttoliittyma.tyhjaa();
+        
+    }
+    
+    public void setAineisto(double[] aineisto) {
+        this.aineisto=aineisto;
     }
 }

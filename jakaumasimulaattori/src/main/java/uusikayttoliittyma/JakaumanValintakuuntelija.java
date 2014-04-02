@@ -24,7 +24,7 @@ public class JakaumanValintakuuntelija implements ActionListener {
     private JRadioButton gamma;
     private JRadioButton binomi;
     private JRadioButton eksponentti;
-    private JRadioButton valittuButton;
+    private String valittuButton;
     private ParametrienValintakuuntelija parametrienValintakuuntelija;
     private boolean onkoJakaumaa;
     
@@ -43,28 +43,33 @@ public class JakaumanValintakuuntelija implements ActionListener {
         
         if (parametrienValintakuuntelija.onkoTiedostoa()) {
             parametrienValintakuuntelija.asetaOK();
+            
         }
         
         
         if (ae.getSource() == normaali) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaNormaali();
+            valittuButton="normaali";
         }
         
         if (ae.getSource()==gamma) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaGamma();
+            valittuButton="gamma";
             
         }
         
         if (ae.getSource() == binomi) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaBinomi();
+            valittuButton="binomi";
         }
         
         if (ae.getSource() == eksponentti) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaEksponentti();
+            valittuButton = "eksponentti";
             
         }
         
@@ -79,7 +84,7 @@ public class JakaumanValintakuuntelija implements ActionListener {
         return this.onkoJakaumaa;
     }
     
-    public JRadioButton getValittuButton() {
+    public String getValittuButton() {
         return valittuButton;
     }
     
