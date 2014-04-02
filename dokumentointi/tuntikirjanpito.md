@@ -30,4 +30,6 @@ ma 31.3. 1,5h kirjoitin käyttöliittymää, paremmalla menestyksellä tällä k
 
 ti 1.4. 3h kirjoitin käyttöliittymää, luulo menestyksestä osoittautui virheelliseksi ja aloitin uudestaan alusta.
 
-ke 2.4. 5h kirjoitin lisää käyttöliittymää, joka selviää tähänasti ylivoimaisista ongelmista
+ke 2.4. 5h kirjoitin lisää käyttöliittymää, joka selviää tähän asti ylivoimaisista ongelmista
+
+ke 2.4. 1,5 kirjoitin käyttöliittymää. ohjelman perustoiminnallisuus toimii olennaisilta osin GUI:n kautta
