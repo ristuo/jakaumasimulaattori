@@ -15,10 +15,20 @@ import java.awt.Component;
 import java.awt.event.*;
 
 /**
- *
+ * 
  * @author rtuomainen
  */
 public class JakaumanValintakuuntelija implements ActionListener {
+   
+    /**
+     * Luokan tarkoitus on seurata käyttäjän toimintaa jakaumavalikon suhteen ja
+     * välittää tiedot käyttäjän valinnoista muille luokille, kuten parametrien-
+     * valintakuuntelijalle
+     * 
+     * @see ParametrienValintakuuntelija
+     * 
+     * 
+     */
     
     private JRadioButton normaali;
     private JRadioButton gamma;

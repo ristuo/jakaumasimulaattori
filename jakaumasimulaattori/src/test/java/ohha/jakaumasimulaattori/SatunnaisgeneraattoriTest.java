@@ -36,7 +36,7 @@ public class SatunnaisgeneraattoriTest {
     
     @Test
     public void poissonGeneraattoriPalauttaaPositiivisiaArvoja() {
-        int x = satunnaisgeneraattori.generoiPoisson(2.5);
+        double x = satunnaisgeneraattori.generoiPoisson(2.5);
         boolean testi = true;
         
         if (x < 0) {

@@ -17,6 +17,12 @@ import java.awt.Component;
 
 public class KehysAsettelija {
     
+    /**
+     * Luokan tarkoituksena on vastata erilaisten elementtien luomisesta käyttöliittymän
+     * tarvitsemiin ikkunoihin
+     * 
+     */
+    
     private Kayttoliittyma kayttoliittyma;
     private JFrame jakaumanValintakehys;
     private Valintakuuntelija valintakuuntelija;

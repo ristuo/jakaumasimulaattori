@@ -14,15 +14,19 @@ import java.awt.Component;
 
 public class Kayttoliittyma implements Runnable {
     
+    /**
+     * Luokka on ohjelman käyttöliittymä, joka hallinnoi muiden ohjelman kompo-
+     * nenttien toimintaa
+     * 
+     */
+    
     private JFrame jakaumanValintakehys;
-    private Valintakuuntelija valintakuuntelija;
     private KehysAsettelija kehysAsettelija;
     
     @Override
     public void run() {
-        this.jakaumanValintakehys = new JFrame("Jakaumasimulaattori");
-        this.valintakuuntelija = new Valintakuuntelija();
-        this.kehysAsettelija = new KehysAsettelija(this, jakaumanValintakehys, valintakuuntelija);
+        this.jakaumanValintakehys = new JFrame("Jakaumasimulaattori");        
+        this.kehysAsettelija = new KehysAsettelija(this, jakaumanValintakehys);
         kehysAsettelija.luoJakaumanValintaKehys();
         kehysAsettelija.luoKomponentitJakaumanValintaKehykseen();
     }

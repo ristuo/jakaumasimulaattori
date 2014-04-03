@@ -17,6 +17,12 @@ import java.awt.event.*;
 
 public class ParametrienValintakuuntelija implements ActionListener {
     
+    /**
+     * Luokan tarkoituksena on seurata käyttäjän toimintaa parametrivalikon, 
+     * tiedostonvalinnan ja "generoi jakauma" nappulan suhteen.
+     */
+    
+    
     private Otosgeneraattori otosgeneraattori = new Otosgeneraattori();
     private JTextField myy;
     private JTextField sigma;
@@ -55,6 +61,8 @@ public class ParametrienValintakuuntelija implements ActionListener {
         double[] aineisto = null;
         TiedostonKasittelija tiedostonKasittelija = new TiedostonKasittelija();
         
+        // ainut mahdollinen actionevent on tiedoston valitseminen, jos se tehdään ja
+        // on valittu jakauma, ok-napin voi laittaa päälle
         if (jakaumanValintakuuntelija.onkoJakaumaa()) {
             this.ok.setEnabled(true);
         }
