@@ -18,6 +18,8 @@ ke 19.3. 2.5h kirjoitin lisää testejä, tein normaalijakaumageneraattorin
 
 ke 19.3. 1.5h testailin toimintoja, virittelin koodia ja kirjoitin hieman uutta
 
+
+
 la 22.3. 2,5h kirjoitin hieman uutta tekstia, aloitin käyttöliittymää, lannistuin ja aloin lukemaan kirjaa joka kertoo miten tehdä käyttöliittymä, sekä korjasin pieniä ongelmia koodissa
 
 ma 24.3. 5h aloitin käyttöliittymän tekemistä
@@ -37,3 +39,5 @@ ke 2.4. 1,5 kirjoitin käyttöliittymää. ohjelman perustoiminnallisuus toimii 
 ke 2.4. 1h tutkailin javadoc-hommia ja aloitin niitä. kirjoitin vähän käyttöliittymää
 
 ke 2.4. 40 min kirjoitin javadocseja.
+
+to 3.4. 1,5h tein sekvenssikaaviota, kävin skannaamassa sen, ja päivittelin githubbia sekä korjailin vähän koodia, mm. poistamalla vanhan käyttöliittymän
