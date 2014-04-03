@@ -25,16 +25,15 @@ public class KehysAsettelija {
     
     private Kayttoliittyma kayttoliittyma;
     private JFrame jakaumanValintakehys;
-    private Valintakuuntelija valintakuuntelija;
     private JakaumanValintakuuntelija jakaumanValintakuuntelija;
     private ParametrienValintakuuntelija parametrienValintakuuntelija;
     private double[] aineisto;
     private TunnuslukuLaskuri tunnuslukulaskuri = new TunnuslukuLaskuri();
     
-    public KehysAsettelija(Kayttoliittyma kayttoliittyma, JFrame jakaumanValintakehys, Valintakuuntelija valintakuuntelija) {
+    public KehysAsettelija(Kayttoliittyma kayttoliittyma, JFrame jakaumanValintakehys) {
         this.kayttoliittyma=kayttoliittyma;
         this.jakaumanValintakehys = jakaumanValintakehys;
-        this.valintakuuntelija = valintakuuntelija;
+
         
     }
     
