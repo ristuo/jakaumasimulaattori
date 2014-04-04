@@ -1,6 +1,6 @@
 package ohha.jakaumasimulaattori;
 import java.io.*;
-import kayttoliittyma.*;
+
 import uusikayttoliittyma.*;
 
 public class App 

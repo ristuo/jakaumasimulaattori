@@ -21,6 +21,7 @@ public class Kayttoliittyma implements Runnable {
      */
     
     private JFrame jakaumanValintakehys;
+    private JFrame virheilmoitusruutu;
     private KehysAsettelija kehysAsettelija;
     
     @Override
@@ -32,11 +33,17 @@ public class Kayttoliittyma implements Runnable {
     }
     
   
-    public void tyhjaa() {
+    public void siirryYhteenvetoIkkunaan() {
         jakaumanValintakehys.getContentPane().removeAll();
         jakaumanValintakehys.getContentPane().repaint();
         kehysAsettelija.luoRaporttiKehys(jakaumanValintakehys);
         jakaumanValintakehys.getContentPane().repaint();
         jakaumanValintakehys.repaint();
+    }
+    
+    public void siirryVirheilmoitukseen() {
+        this.virheilmoitusruutu = new JFrame("");
+        
+        kehysAsettelija.luoVirheilmoitusruutu(virheilmoitusruutu);
     }
 }

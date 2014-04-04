@@ -50,6 +50,8 @@ public class JakaumanValintakuuntelija implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         
         this.onkoJakaumaa=true;
+        parametrienValintakuuntelija.nollaaKaikkiParametrivalikot();
+        parametrienValintakuuntelija.maalaaKaikkiParametrivalikotValkoisiksi();
         
         if (parametrienValintakuuntelija.onkoTiedostoa()) {
             parametrienValintakuuntelija.asetaOK();

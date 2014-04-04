@@ -4,6 +4,7 @@ import ohha.jakaumasimulaattori.*;
 import java.util.*;
 import java.awt.Container;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
@@ -37,6 +38,7 @@ public class ParametrienValintakuuntelija implements ActionListener {
     private KehysAsettelija kehysAsettelija;
     private boolean onkoTiedostoa = false;
     private JakaumanValintakuuntelija jakaumanValintakuuntelija;
+
     
     
     public ParametrienValintakuuntelija(JTextField myy, JTextField sigma, JTextField lambda, 
@@ -47,7 +49,7 @@ public class ParametrienValintakuuntelija implements ActionListener {
         this.alfa = alfa;
         this.beta = beta;
         this.otoskoko = otoskoko;
-
+        
         this.p = p;        
         this.kehysAsettelija = kehysAsettelija;
     }
@@ -75,75 +77,133 @@ public class ParametrienValintakuuntelija implements ActionListener {
             if (x==tiedostonvalitsija.APPROVE_OPTION) {
                 this.tallennustiedosto = tiedostonvalitsija.getSelectedFile();
                 this.onkoTiedostoa=true;
+                tiedosto.setText("Valittuna: " + tallennustiedosto.getName());
             }
             else onkoTiedostoa = false;
+            return;
         }    
         
         if (ae.getSource() == ok) {
             
-            
-            
             try {
                 otoksenkoko = Integer.parseInt(otoskoko.getText()); 
+                if (otoksenkoko < 0) {
+                    throw new IllegalArgumentException();
+                }
+                otoskoko.setBackground(Color.white);
             }
             
             catch (Exception e) {
-                
+                otoskoko.setBackground(Color.red);                
             }
             
+          
             
             if (jakaumanValintakuuntelija.getValittuButton().equals("normaali")) {
                 try { 
                     parametri1 = Double.parseDouble(myy.getText());
-                    parametri2 = Double.parseDouble(sigma.getText());
-                    
-                    aineisto = otosgeneraattori.normaaliAineisto(otoksenkoko, parametri1, parametri2);
-                    tiedostonKasittelija.tulostaAineistoTiedostoonCSV(tallennustiedosto, aineisto);
-                }
-                catch (Exception e) {
-                    System.out.println("Hälytys! paska syöte!");
+                    myy.setBackground(Color.white);
                 }
                 
+                catch (Exception e) {
+                    myy.setBackground(Color.red);
+                    parametri1 = 0; //tämä tehtiin vain, jotta netbeans ei rumentaisi ohjelmointi
+                    //ympäristöä punaisella alleviivauksella ja virheilmoituksella "parametri1 might not have 
+                    // been initialized", oikeasti ei generoida mitään aineistoa
+                }
+                
+                try {
+                    parametri2 = Double.parseDouble(sigma.getText());
+                    if (parametri2 < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                    sigma.setBackground(Color.white);
+                }
+                
+                catch (Exception e) {
+                    sigma.setBackground(Color.red);
+                    return;
+                }
+                if (myy.getBackground()==Color.red) {
+                    return;
+                }
+                
+                aineisto = otosgeneraattori.normaaliAineisto(otoksenkoko, parametri1, parametri2);   
+                
+                }        
             }
             
             if (jakaumanValintakuuntelija.getValittuButton().equals("eksponentti")) {
                 try {
                     parametri1 = Double.parseDouble(lambda.getText());
-                    
-                    aineisto = otosgeneraattori.eksponenttiAineisto(otoksenkoko, parametri1);
-                    
+                    if (parametri1 < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                    lambda.setBackground(Color.white);
                 }
                 
                 catch (Exception e) {
-                    
+                    lambda.setBackground(Color.red);
+                    return;
                 }
+                aineisto = otosgeneraattori.eksponenttiAineisto(otoksenkoko, parametri1);
             }
             
             if (jakaumanValintakuuntelija.getValittuButton().equals("binomi")) {
                 try {
                     parametri1 = Double.parseDouble(p.getText());                    
-                    aineisto = otosgeneraattori.binomiAineisto(otoksenkoko, parametri1);
+                    if (parametri1 > 1 || parametri1 < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                    p.setBackground(Color.white);
                 }
                 
                 catch (Exception e) {
-                    
+                    p.setBackground(Color.red);
+                    return;
                 }
+                aineisto = otosgeneraattori.binomiAineisto(otoksenkoko, parametri1);
             }
             
             if (jakaumanValintakuuntelija.getValittuButton().equals("gamma")) {
                 try {
                     parametri1 = Double.parseDouble(alfa.getText());
+                    if (parametri1 < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                    alfa.setBackground(Color.white);
+                }
+                
+                catch (Exception e) {                
+                    alfa.setBackground(Color.red);
+                    parametri1 = 0; //jälleen parametri asetetaan jotta netbeans ei valittaisi
+                    // alustamattomasta muuttujasta
+                }                  
+                try {
                     parametri2 = Double.parseDouble(beta.getText());
-                    aineisto = otosgeneraattori.gammaAineisto(otoksenkoko, parametri1, parametri2);
-               
+                    if (parametri2 < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                    beta.setBackground(Color.white);
                 }
                 
                 catch (Exception e) {
-                    
+                    beta.setBackground(Color.red);
+                    return;
                 }
+                    if (alfa.getBackground()==Color.red) {
+                        return;
+                    }
+                    aineisto = otosgeneraattori.gammaAineisto(otoksenkoko, parametri1, parametri2);
+               
+                }                                    
+                
+            
+            
+            
+            if (otoskoko.getBackground()==Color.red) {
+                return;
             }
-            
-            
             
             try {
                 tiedostonKasittelija.tulostaAineistoTiedostoonCSV(tallennustiedosto, aineisto);
@@ -153,14 +213,14 @@ public class ParametrienValintakuuntelija implements ActionListener {
             }
             
             catch (Exception e) {
-                
+                kehysAsettelija.virhe();
             }
             
         }
-    }
     
     
     
+
     
     
     public void asetaNormaali() {
@@ -214,4 +274,26 @@ public class ParametrienValintakuuntelija implements ActionListener {
     public boolean onkoTiedostoa() {
         return this.onkoTiedostoa;
     }
+    
+    public void maalaaKaikkiParametrivalikotValkoisiksi() {
+        this.myy.setBackground(Color.white);
+        this.sigma.setBackground(Color.white);
+        this.alfa.setBackground(Color.white);
+        this.beta.setBackground(Color.white);
+        this.lambda.setBackground(Color.white);
+        this.p.setBackground(Color.white);
+        this.otoskoko.setBackground(Color.white);
+    }
+    
+    public void nollaaKaikkiParametrivalikot() {
+        this.myy.setText("\u03BC");
+        this.sigma.setText("\u03C3");
+        this.alfa.setText("\u03B1");
+        this.beta.setText("\u03B2");
+        this.lambda.setText("\u03BB");
+        this.p.setText("p");
+        this.otoskoko.setText("Otoskoko");
+    }
+    
+
 }

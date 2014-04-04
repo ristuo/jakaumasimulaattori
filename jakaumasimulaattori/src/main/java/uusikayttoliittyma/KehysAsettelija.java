@@ -5,6 +5,7 @@ import ohha.jakaumasimulaattori.*;
 import java.util.*;
 import java.awt.Container;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
@@ -95,6 +96,7 @@ public class KehysAsettelija {
         JTextField myy = new JTextField("\u03BC");
         myy.setEnabled(false);
         
+        
         JTextField sigma = new JTextField("\u03C3");
         sigma.setEnabled(false);
         
@@ -143,6 +145,8 @@ public class KehysAsettelija {
         container.add(new JLabel("Otoskeskihajonta: "+tunnuslukulaskuri.laskeOtoskeskihajonta(aineisto)));
     }
     
+    
+    
     private JPanel luoTiedostoJaOKNappulat() {
         JPanel tiedostoJaOK = new JPanel();
         
@@ -152,23 +156,43 @@ public class KehysAsettelija {
         
         JButton tiedosto = new JButton("Valitse tallennustiedosto");
         tiedosto.addActionListener(parametrienValintakuuntelija);
+
         
         parametrienValintakuuntelija.setOK(ok);
         parametrienValintakuuntelija.setTiedosto(tiedosto);
+
         
         tiedostoJaOK.add(ok);
         tiedostoJaOK.add(tiedosto);
-        
+
         return tiedostoJaOK;
         
     }
+    
+    public void virhe() {
+        kayttoliittyma.siirryVirheilmoitukseen();
+    }
+    
+    public void luoVirheilmoitusruutu(JFrame virheilmoitusruutu) {
+        virheilmoitusruutu.setPreferredSize(new Dimension(300,400));
+        virheilmoitusruutu.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);        
+        virheilmoitusruutu.setVisible(true);
+        Container container = virheilmoitusruutu.getContentPane();
+                
+        container.add(new JLabel("Järjestelmä on suorittanut laittoman toiminnon ja lopetetaan"));
+        virheilmoitusruutu.pack();
+        
+        
+    }
+    
+    
     
     public JFrame getFrame() {
         return this.jakaumanValintakehys;
     }
     
     public void tyhjaa() {
-        kayttoliittyma.tyhjaa();
+        kayttoliittyma.siirryYhteenvetoIkkunaan();
         
     }
     
