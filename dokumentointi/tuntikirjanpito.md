@@ -42,4 +42,4 @@ ke 2.4. 40 min kirjoitin javadocseja.
 
 to 3.4. 1,5h tein sekvenssikaaviota, kävin skannaamassa sen, ja päivittelin githubbia sekä korjailin vähän koodia, mm. poistamalla vanhan käyttöliittymän
 
-pe 4.4. 2,5h tein virheidenkäsittelyjärjestelmän, tuli hyvä.
+pe 4.4. 3h tein virheidenkäsittelyjärjestelmän, tuli hyvä.
