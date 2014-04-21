@@ -15,15 +15,15 @@ public class TiedostonKasittelija {
     
     
     
-    public void tulostaAineistoTiedostoonCSV(File tiedosto, double[] aineisto) throws IOException {
+    public void tulostaAineistoTiedostoonCSV(File tiedosto, TilastoAineisto tilastoaineisto) throws IOException {
         /**
          * metodi tulostaa tiedostoon saamansa aineiston.
          */
         FileWriter tulostin;
         
             tulostin = new FileWriter(tiedosto);
-            for (int i = 0; i < aineisto.length; i++) {
-                String tulostus = "" + aineisto[i] + ";";
+            for (int i = 0; i < tilastoaineisto.getAineisto().length; i++) {
+                String tulostus = "" + tilastoaineisto.getAineisto()[i] + "\n";
                 tulostin.write(tulostus);
             }
             tulostin.close();

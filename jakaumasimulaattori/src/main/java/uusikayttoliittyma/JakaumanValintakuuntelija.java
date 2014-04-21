@@ -34,17 +34,21 @@ public class JakaumanValintakuuntelija implements ActionListener {
     private JRadioButton gamma;
     private JRadioButton binomi;
     private JRadioButton eksponentti;
-    private String valittuButton;
+    private JRadioButton cauchy;
+    private Jakauma valittuJakauma;
     private ParametrienValintakuuntelija parametrienValintakuuntelija;
     private boolean onkoJakaumaa;
+    private JRadioButton poisson;
     
-    public JakaumanValintakuuntelija(JRadioButton normaali, JRadioButton gamma, JRadioButton binomi, JRadioButton eksponentti) {
+    public JakaumanValintakuuntelija(JRadioButton normaali, JRadioButton gamma, JRadioButton binomi, 
+            JRadioButton eksponentti, JRadioButton poisson, JRadioButton cauchy) {
         
         this.normaali = normaali;
         this.gamma = gamma;
         this.binomi = binomi;
         this.eksponentti = eksponentti;
-        
+        this.poisson = poisson;
+        this.cauchy = cauchy;
     }
     
     public void actionPerformed(ActionEvent ae) {
@@ -62,29 +66,40 @@ public class JakaumanValintakuuntelija implements ActionListener {
         if (ae.getSource() == normaali) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaNormaali();
-            valittuButton="normaali";
+            valittuJakauma=Jakauma.NORMAALI;
         }
         
         if (ae.getSource()==gamma) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaGamma();
-            valittuButton="gamma";
+            valittuJakauma=Jakauma.GAMMA;
             
         }
         
         if (ae.getSource() == binomi) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaBinomi();
-            valittuButton="binomi";
+            valittuJakauma=Jakauma.BINOMI;
         }
         
         if (ae.getSource() == eksponentti) {
             parametrienValintakuuntelija.asetaKaikkiDisabled();
             parametrienValintakuuntelija.asetaEksponentti();
-            valittuButton = "eksponentti";
+            valittuJakauma = Jakauma.EKSPONENTTI;
             
         }
         
+        if (ae.getSource() == poisson) {
+            parametrienValintakuuntelija.asetaKaikkiDisabled();
+            parametrienValintakuuntelija.asetaPoisson();
+            valittuJakauma = Jakauma.POISSON;
+        }
+        
+        if (ae.getSource()==cauchy) {
+            parametrienValintakuuntelija.asetaKaikkiDisabled();
+            parametrienValintakuuntelija.asetaCauchy();
+            valittuJakauma = Jakauma.CAUCHY;
+        }
         
     }
     
@@ -96,8 +111,8 @@ public class JakaumanValintakuuntelija implements ActionListener {
         return this.onkoJakaumaa;
     }
     
-    public String getValittuButton() {
-        return valittuButton;
+    public Jakauma getValittuJakauma() {
+        return valittuJakauma;
     }
     
     

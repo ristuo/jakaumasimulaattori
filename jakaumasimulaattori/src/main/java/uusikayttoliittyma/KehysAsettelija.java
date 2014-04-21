@@ -15,6 +15,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.*;
 import java.io.*;
 import java.awt.Component;
+import java.awt.Toolkit;
+import java.text.*;
 
 public class KehysAsettelija {
     
@@ -28,23 +30,26 @@ public class KehysAsettelija {
     private JFrame jakaumanValintakehys;
     private JakaumanValintakuuntelija jakaumanValintakuuntelija;
     private ParametrienValintakuuntelija parametrienValintakuuntelija;
-    private double[] aineisto;
+    private TilastoAineisto tilastoaineisto;
     private TunnuslukuLaskuri tunnuslukulaskuri = new TunnuslukuLaskuri();
-    
+    private NumberFormat nf = NumberFormat.getInstance();        
+
     public KehysAsettelija(Kayttoliittyma kayttoliittyma, JFrame jakaumanValintakehys) {
         this.kayttoliittyma=kayttoliittyma;
         this.jakaumanValintakehys = jakaumanValintakehys;
-
+        nf.setMaximumFractionDigits(3);            
+        nf.setGroupingUsed(false);
         
     }
     
     public void luoJakaumanValintaKehys() {
         
         this.jakaumanValintakehys.setPreferredSize(new Dimension(500, 600));
+        this.keskitaFrame(jakaumanValintakehys);
         this.jakaumanValintakehys.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.jakaumanValintakehys.setVisible(true);
         this.jakaumanValintakehys.pack();
-        
+        jakaumanValintakehys.repaint();
     }
     
     public void luoKomponentitJakaumanValintaKehykseen() {
@@ -53,7 +58,8 @@ public class KehysAsettelija {
         container.add(this.luoJakaumaValikko(), BorderLayout.NORTH);       
         container.add(this.luoParametriValikko(), BorderLayout.CENTER);
         container.add(this.luoTiedostoJaOKNappulat(), BorderLayout.SOUTH);
-        
+        container.repaint();
+        jakaumanValintakehys.repaint();
     }
     
     private JPanel luoJakaumaValikko() {
@@ -67,23 +73,33 @@ public class KehysAsettelija {
         JRadioButton binomi = new JRadioButton("Binomijakauma");
         JRadioButton eksponentti = new JRadioButton("Eksponenttijakauma");
         JRadioButton gamma = new JRadioButton("Gammajakauma");
+        JRadioButton poisson = new JRadioButton("Poisson-jakauma");
+        JRadioButton cauchy = new JRadioButton("Cauchy-jakauma");
         
         jakaumanappularyhma.add(normaali);
         jakaumanappularyhma.add(gamma);
         jakaumanappularyhma.add(eksponentti);
         jakaumanappularyhma.add(binomi);
+        jakaumanappularyhma.add(poisson);
+        jakaumanappularyhma.add(cauchy);
         
-        this.jakaumanValintakuuntelija = new JakaumanValintakuuntelija(normaali,gamma,binomi,eksponentti);
+        this.jakaumanValintakuuntelija = new JakaumanValintakuuntelija(normaali,gamma,binomi,eksponentti, poisson, cauchy);
         normaali.addActionListener(jakaumanValintakuuntelija);
         gamma.addActionListener(jakaumanValintakuuntelija);
         binomi.addActionListener(jakaumanValintakuuntelija);
         eksponentti.addActionListener(jakaumanValintakuuntelija);
+        poisson.addActionListener(jakaumanValintakuuntelija);
+        cauchy.addActionListener(jakaumanValintakuuntelija);
+        
+        
         
         jakaumapaneeli.add(new JLabel("Valitse simuloitava jakauma"));
         jakaumapaneeli.add(gamma);
         jakaumapaneeli.add(binomi);
         jakaumapaneeli.add(eksponentti);
         jakaumapaneeli.add(normaali);
+        jakaumapaneeli.add(poisson);
+        jakaumapaneeli.add(cauchy);
         
         return jakaumapaneeli;
     }
@@ -109,7 +125,12 @@ public class KehysAsettelija {
         JTextField beta = new JTextField("\u03B2");
         beta.setEnabled(false);
         
+        JTextField gamma = new JTextField("\u03B3");
+        gamma.setEnabled(false);        
 
+        JTextField n = new JTextField("n");
+        n.setEnabled(false);
+        
         JTextField p = new JTextField("p");
         p.setEnabled(false);
         
@@ -121,12 +142,14 @@ public class KehysAsettelija {
         parametriPaneeli.add(sigma);    
         parametriPaneeli.add(lambda);     
         parametriPaneeli.add(alfa);    
-        parametriPaneeli.add(beta);      
+        parametriPaneeli.add(beta);   
+        parametriPaneeli.add(n);
         parametriPaneeli.add(p);        
+        parametriPaneeli.add(gamma);
         parametriPaneeli.add(otoskoko);
         
         
-        this.parametrienValintakuuntelija = new ParametrienValintakuuntelija(myy,sigma,lambda,alfa,beta, p, otoskoko, this);
+        this.parametrienValintakuuntelija = new ParametrienValintakuuntelija(myy,sigma,lambda,alfa,beta, n, p, gamma, otoskoko, this);
         this.jakaumanValintakuuntelija.asetaParametrienValintaKuuntelija(parametrienValintakuuntelija);
         this.parametrienValintakuuntelija.setJakaumanValintakuuntelija(jakaumanValintakuuntelija);
         myy.addActionListener(parametrienValintakuuntelija);
@@ -134,6 +157,7 @@ public class KehysAsettelija {
         lambda.addActionListener(parametrienValintakuuntelija);
         alfa.addActionListener(parametrienValintakuuntelija);
         beta.addActionListener(parametrienValintakuuntelija);
+        n.addActionListener(jakaumanValintakuuntelija);
         
         return parametriPaneeli;
     }
@@ -141,8 +165,58 @@ public class KehysAsettelija {
     public void luoRaporttiKehys(JFrame raporttiKehys) {
         Container container = raporttiKehys.getContentPane();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        container.add(new JLabel("Keskiarvo: " +tunnuslukulaskuri.laskeKeskiarvo(aineisto)));
-        container.add(new JLabel("Otoskeskihajonta: "+tunnuslukulaskuri.laskeOtoskeskihajonta(aineisto)));
+        JTextArea tulostus = new JTextArea();
+
+        
+        
+        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.NORMAALI) {
+            tulostus.append("Jakauman odotusarvo: " + parametrienValintakuuntelija.getGeneroidunJakaumanparametri1() + "\n");
+            tulostus.append(tulostaKeskiarvoTextAreaan(tilastoaineisto) + "\n");
+            tulostus.append("Jakauman keskihajonta: " + parametrienValintakuuntelija.getGeneroidunJakaumanparametri2() + "\n");
+            tulostus.append("Otoskeskihajonta: "+nf.format(tunnuslukulaskuri.laskeOtoskeskihajonta(tilastoaineisto)) + "\n");
+            tulostus.append("T-testisuure: " + nf.format(tunnuslukulaskuri.laskeTtestisuure(tilastoaineisto, parametrienValintakuuntelija.getGeneroidunJakaumanparametri1())));
+        }
+        
+        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.EKSPONENTTI) {
+            tulostus.append("Jakauman odotusarvo: " + nf.format(1/parametrienValintakuuntelija.getGeneroidunJakaumanparametri1()) + "\n");
+            tulostus.append(tulostaKeskiarvoTextAreaan(tilastoaineisto) + "\n");
+            tulostus.append("Jakauman keskihajonta: " + nf.format(1/parametrienValintakuuntelija.getGeneroidunJakaumanparametri1())+ "\n");
+            tulostus.append("Jakauman otoskeskihajonta: " + tulostaOtoskeskihajontaTextAreaan(tilastoaineisto) );
+        }
+        
+        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.GAMMA) {
+            tulostus.append("Jakauman odotusarvo: " + nf.format(parametrienValintakuuntelija.getGeneroidunJakaumanparametri1()/parametrienValintakuuntelija.getGeneroidunJakaumanparametri2()) + "\n");
+            
+        
+        }
+        
+        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.BINOMI) {
+            
+        }
+        
+        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.POISSON) {
+            
+        }
+        
+        if (jakaumanValintakuuntelija.getValittuJakauma() == Jakauma.POISSON) {
+            tulostus.append("Jakauman odotusarvo: " + parametrienValintakuuntelija.getGeneroidunJakaumanparametri1() + "\n");
+            tulostus.append(tulostaKeskiarvoTextAreaan(tilastoaineisto) + "\n");
+            tulostus.append("Jakauman keskihajonta: " + Math.sqrt(parametrienValintakuuntelija.getGeneroidunJakaumanparametri1()));
+            tulostus.append(tulostaOtoskeskihajontaTextAreaan(tilastoaineisto) + "\n");
+        }
+         
+   
+        container.add(tulostus);
+    
+        kayttoliittyma.luoGraafiIkkuna();
+    }
+    
+    private String tulostaKeskiarvoTextAreaan(TilastoAineisto tilastoaineisto) {
+        return "Keskiarvo: " + nf.format(tunnuslukulaskuri.laskeKeskiarvo(tilastoaineisto));
+    }
+    
+    private String tulostaOtoskeskihajontaTextAreaan(TilastoAineisto tilastoaineisto) {
+        return "Otoskeskihajonta: " + nf.format(tunnuslukulaskuri.laskeOtoskeskihajonta(tilastoaineisto));
     }
     
     
@@ -185,18 +259,32 @@ public class KehysAsettelija {
         
     }
     
-    
+    public void luoGraafi(JFrame graafiIkkuna) {
+        GraafiPaneeli graafipaneeli = new GraafiPaneeli(tilastoaineisto);
+        graafiIkkuna.add(graafipaneeli);
+        
+    }
     
     public JFrame getFrame() {
         return this.jakaumanValintakehys;
     }
     
-    public void tyhjaa() {
+    public void siirryYhteenvetoIkkunaan() {
         kayttoliittyma.siirryYhteenvetoIkkunaan();
         
     }
     
-    public void setAineisto(double[] aineisto) {
-        this.aineisto=aineisto;
+    public void setAineisto(TilastoAineisto tilastoaineisto) {
+        this.tilastoaineisto=tilastoaineisto;
     }
+    
+    private void keskitaFrame(JFrame keskitettava) {
+        Dimension framinKoko = keskitettava.getSize();
+        Dimension ruudunKoko = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (ruudunKoko.width - framinKoko.width)/2;
+        int y = (ruudunKoko.height - framinKoko.height)/4;
+        keskitettava.setLocation(x, y);        
+    }
+    
+    
 }

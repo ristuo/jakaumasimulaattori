@@ -31,25 +31,29 @@ public class ParametrienValintakuuntelija implements ActionListener {
     private JTextField alfa;
     private JTextField beta;
     private JTextField p;
+    private JTextField gamma;
     private JTextField otoskoko;
+    private JTextField n;
     private JButton ok;
     private JButton tiedosto;   
     private File tallennustiedosto;
     private KehysAsettelija kehysAsettelija;
     private boolean onkoTiedostoa = false;
     private JakaumanValintakuuntelija jakaumanValintakuuntelija;
-
+    private double parametri1;
+    private double parametri2;
     
     
     public ParametrienValintakuuntelija(JTextField myy, JTextField sigma, JTextField lambda, 
-            JTextField alfa, JTextField beta, JTextField p, JTextField otoskoko, KehysAsettelija kehysAsettelija) {
+            JTextField alfa, JTextField beta, JTextField n, JTextField p, JTextField gamma, JTextField otoskoko, KehysAsettelija kehysAsettelija) {
         this.myy = myy;
         this.sigma = sigma;
         this.lambda = lambda;
         this.alfa = alfa;
         this.beta = beta;
         this.otoskoko = otoskoko;
-        
+        this.gamma = gamma; 
+        this.n = n;
         this.p = p;        
         this.kehysAsettelija = kehysAsettelija;
     }
@@ -57,10 +61,9 @@ public class ParametrienValintakuuntelija implements ActionListener {
     
     public void actionPerformed(ActionEvent ae) {
         
-        double parametri1;
-        double parametri2;
+
         int otoksenkoko = 0;
-        double[] aineisto = null;
+        TilastoAineisto aineisto = null;
         TiedostonKasittelija tiedostonKasittelija = new TiedostonKasittelija();
         
         // ainut mahdollinen actionevent on tiedoston valitseminen, jos se tehdään ja
@@ -99,7 +102,7 @@ public class ParametrienValintakuuntelija implements ActionListener {
             
           
             
-            if (jakaumanValintakuuntelija.getValittuButton().equals("normaali")) {
+            if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.NORMAALI) {
                 try { 
                     parametri1 = Double.parseDouble(myy.getText());
                     myy.setBackground(Color.white);
@@ -127,13 +130,13 @@ public class ParametrienValintakuuntelija implements ActionListener {
                 if (myy.getBackground()==Color.red) {
                     return;
                 }
-                
-                aineisto = otosgeneraattori.normaaliAineisto(otoksenkoko, parametri1, parametri2);   
-                
-                }        
+                if (otoskoko.getBackground()!=Color.red) {
+                    aineisto = otosgeneraattori.normaaliAineisto(otoksenkoko, parametri1, parametri2);   
+                    
+                }         
             }
             
-            if (jakaumanValintakuuntelija.getValittuButton().equals("eksponentti")) {
+            if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.EKSPONENTTI) {
                 try {
                     parametri1 = Double.parseDouble(lambda.getText());
                     if (parametri1 < 0) {
@@ -146,10 +149,13 @@ public class ParametrienValintakuuntelija implements ActionListener {
                     lambda.setBackground(Color.red);
                     return;
                 }
-                aineisto = otosgeneraattori.eksponenttiAineisto(otoksenkoko, parametri1);
+                
+                if (otoskoko.getBackground()!=Color.red) {
+                    aineisto = otosgeneraattori.eksponenttiAineisto(otoksenkoko, parametri1);
+                }
             }
             
-            if (jakaumanValintakuuntelija.getValittuButton().equals("binomi")) {
+            if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.BINOMI) {
                 try {
                     parametri1 = Double.parseDouble(p.getText());                    
                     if (parametri1 > 1 || parametri1 < 0) {
@@ -162,10 +168,29 @@ public class ParametrienValintakuuntelija implements ActionListener {
                     p.setBackground(Color.red);
                     return;
                 }
-                aineisto = otosgeneraattori.binomiAineisto(otoksenkoko, parametri1);
+                
+                try {
+                    parametri2 = Integer.parseInt(n.getText());
+                    if (parametri2 < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                    n.setBackground(Color.white);
+                }
+                
+                catch (Exception e) {
+                    n.setBackground(Color.red);
+                    return;
+                }
+                
+                
+                if (n.getBackground()==Color.red || p.getBackground()==Color.red) {
+                    return;
+ 
+                }
+                aineisto = otosgeneraattori.binomiAineisto(otoksenkoko, parametri2, parametri1);
             }
             
-            if (jakaumanValintakuuntelija.getValittuButton().equals("gamma")) {
+            if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.GAMMA) {
                 try {
                     parametri1 = Double.parseDouble(alfa.getText());
                     if (parametri1 < 0) {
@@ -191,32 +216,85 @@ public class ParametrienValintakuuntelija implements ActionListener {
                     beta.setBackground(Color.red);
                     return;
                 }
-                    if (alfa.getBackground()==Color.red) {
-                        return;
-                    }
+                
+                if (alfa.getBackground()==Color.red || otoskoko.getBackground()==Color.red) {
+                    return;
+                }
                     aineisto = otosgeneraattori.gammaAineisto(otoksenkoko, parametri1, parametri2);
                
                 }                                    
                 
+            if (jakaumanValintakuuntelija.getValittuJakauma() == Jakauma.POISSON) {
+                try {
+                    parametri1 = Double.parseDouble(lambda.getText());
+                    if (parametri1 < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                }
+                
+                catch (Exception e) {
+                    lambda.setBackground(Color.red);
+                    return;
+                }
+                
+                if (lambda.getBackground()==Color.RED) {
+                    return;
+                }
+                
+                aineisto = otosgeneraattori.poissonAineisto(otoksenkoko, parametri1);
+                
+            }
             
+            if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.CAUCHY) {
+                try {
+                    parametri1 = Double.parseDouble(gamma.getText());
+                    if (!(parametri1 > 0)) {
+                        throw new IllegalArgumentException();
+                    }
+                    gamma.setBackground(Color.white);
+                }
+                catch (Exception e) {
+                    gamma.setBackground(Color.red);
+                    return;
+                }
+                
+                try {
+                    parametri2 = Double.parseDouble(myy.getText());
+                    myy.setBackground(Color.white);
+                }
+                
+                catch (Exception e) {
+                    myy.setBackground(Color.red);
+                    return;
+                }
+                
+                if (!(myy.getBackground()==Color.red || gamma.getBackground()==Color.red)) {
+                    aineisto = otosgeneraattori.cauchyAineisto(otoksenkoko, parametri1, parametri2);
+                    
+                }
+            }
             
-            
+                
+            // lopuksi tarkistetaan, onko otoskoolle annettu sopivaa arvoa
             if (otoskoko.getBackground()==Color.red) {
                 return;
             }
             
             try {
+                
                 tiedostonKasittelija.tulostaAineistoTiedostoonCSV(tallennustiedosto, aineisto);
                 kehysAsettelija.setAineisto(aineisto);
-                kehysAsettelija.tyhjaa();
+                kehysAsettelija.siirryYhteenvetoIkkunaan();
                 
             }
             
             catch (Exception e) {
+                //System.out.println("virhe on täällä");
                 kehysAsettelija.virhe();
             }
             
         }
+    }
     
     
     
@@ -244,6 +322,12 @@ public class ParametrienValintakuuntelija implements ActionListener {
     
     public void asetaBinomi() {
         this.p.setEnabled(true);
+        this.n.setEnabled(true);
+    }
+
+    public void asetaCauchy() {
+        this.gamma.setEnabled(true);
+        this.myy.setEnabled(true);
     }
     
     public void asetaKaikkiDisabled() {
@@ -252,6 +336,8 @@ public class ParametrienValintakuuntelija implements ActionListener {
         this.sigma.setEnabled(false);
         this.alfa.setEnabled(false);
         this.beta.setEnabled(false);
+        this.gamma.setEnabled(false);
+        this.n.setEnabled(false);
         this.p.setEnabled(false);
     }
     
@@ -281,6 +367,7 @@ public class ParametrienValintakuuntelija implements ActionListener {
         this.alfa.setBackground(Color.white);
         this.beta.setBackground(Color.white);
         this.lambda.setBackground(Color.white);
+        this.n.setBackground(Color.white);
         this.p.setBackground(Color.white);
         this.otoskoko.setBackground(Color.white);
     }
@@ -291,9 +378,16 @@ public class ParametrienValintakuuntelija implements ActionListener {
         this.alfa.setText("\u03B1");
         this.beta.setText("\u03B2");
         this.lambda.setText("\u03BB");
+        this.n.setText("n");
         this.p.setText("p");
         this.otoskoko.setText("Otoskoko");
     }
     
+    public double getGeneroidunJakaumanparametri1() {
+        return parametri1;
+    }
 
+    public double getGeneroidunJakaumanparametri2() {
+        return parametri2;
+    }
 }

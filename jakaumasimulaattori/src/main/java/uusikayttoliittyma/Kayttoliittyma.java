@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.*;
 import java.io.*;
 import java.awt.Component;
+import java.awt.Toolkit;
 
 public class Kayttoliittyma implements Runnable {
     
@@ -23,6 +24,7 @@ public class Kayttoliittyma implements Runnable {
     private JFrame jakaumanValintakehys;
     private JFrame virheilmoitusruutu;
     private KehysAsettelija kehysAsettelija;
+    private JFrame graafiIkkuna;
     
     @Override
     public void run() {
@@ -30,6 +32,7 @@ public class Kayttoliittyma implements Runnable {
         this.kehysAsettelija = new KehysAsettelija(this, jakaumanValintakehys);
         kehysAsettelija.luoJakaumanValintaKehys();
         kehysAsettelija.luoKomponentitJakaumanValintaKehykseen();
+        jakaumanValintakehys.setSize(501,600);
     }
     
   
@@ -39,11 +42,23 @@ public class Kayttoliittyma implements Runnable {
         kehysAsettelija.luoRaporttiKehys(jakaumanValintakehys);
         jakaumanValintakehys.getContentPane().repaint();
         jakaumanValintakehys.repaint();
+        jakaumanValintakehys.setSize(500, 601);
+
+
     }
     
     public void siirryVirheilmoitukseen() {
-        this.virheilmoitusruutu = new JFrame("");
-        
+        this.virheilmoitusruutu = new JFrame("");        
         kehysAsettelija.luoVirheilmoitusruutu(virheilmoitusruutu);
     }
+    
+    public void luoGraafiIkkuna() {
+        this.graafiIkkuna = new GraafiIkkuna();
+        graafiIkkuna.setPreferredSize(new Dimension(600,600));
+        graafiIkkuna.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        graafiIkkuna.setVisible(true);
+        kehysAsettelija.luoGraafi(graafiIkkuna);
+        graafiIkkuna.pack();
+    }
+
 }

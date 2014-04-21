@@ -28,9 +28,10 @@ public class OtosgeneraattoriTest {
     
     @Test
     public void onkoNormaalijakaumanKarvoOikea() {
-        double[] aineisto = otosgeneraattori.normaaliAineisto(1000, 5, 0.1);
+        TilastoAineisto tilastoaineisto = otosgeneraattori.normaaliAineisto(1000, 5, 0.1);
+
         boolean testi = true;
-        if (Math.abs(laskuri.laskeKeskiarvo(aineisto)-5) > 0.1) {
+        if (Math.abs(laskuri.laskeKeskiarvo(tilastoaineisto)-5) > 0.1) {
             testi = false;
         }
         
@@ -41,7 +42,7 @@ public class OtosgeneraattoriTest {
     
     @Test
     public void onkoEksponenttiAineistollaOikeaKeskiarvo() {
-        double[] aineisto = otosgeneraattori.eksponenttiAineisto(1000, 2.5);
+        double[] aineisto = otosgeneraattori.eksponenttiAineisto(1000, 2.5).getAineisto();
         double summa = 0;
         double keskiarvonEstimaatti;
         boolean testi = false;
@@ -64,8 +65,9 @@ public class OtosgeneraattoriTest {
     
     @Test
     public void onkoPoissonAineistollaOikeaKeskiarvo() {
-        double[] aineisto = otosgeneraattori.poissonAineisto(10000, 0.5);
-        double x = laskuri.laskeKeskiarvo(aineisto);
+        TilastoAineisto tilastoaineisto = otosgeneraattori.poissonAineisto(10000, 0.5);
+        
+        double x = laskuri.laskeKeskiarvo(tilastoaineisto);
         
         boolean testi = true;
        
@@ -78,8 +80,9 @@ public class OtosgeneraattoriTest {
     
     @Test
     public void onkoPoissonAineistollaOikeaOtoskeskihajonta() {
-        double[] aineisto = otosgeneraattori.poissonAineisto(10000, 0.5);
-        double x = Math.pow(laskuri.laskeOtoskeskihajonta(aineisto),2);
+        TilastoAineisto tilastoaineisto = otosgeneraattori.poissonAineisto(10000,0.5);
+        double[] aineisto = tilastoaineisto.getAineisto();
+        double x = Math.pow(laskuri.laskeOtoskeskihajonta(tilastoaineisto),2);
         boolean testi = true;
         if (Math.abs(x-0.5) > 0.1) {
             testi=false;
@@ -87,5 +90,18 @@ public class OtosgeneraattoriTest {
         assertTrue(testi);
     }
     
+       
+    @Test
+    public void onkoGammallaOikeaOtoskeskiarvo() {
+        TilastoAineisto tilastoaineisto = otosgeneraattori.gammaAineisto(10000, 6, 2);
+        
+        double x = laskuri.laskeKeskiarvo(tilastoaineisto);
+        boolean testi = true;
+        if (Math.abs(6/2-x) > 0.3) {
+            testi = false;
+        }
+        System.out.println(x);
+        assertTrue(testi);
+    }
     
 }
