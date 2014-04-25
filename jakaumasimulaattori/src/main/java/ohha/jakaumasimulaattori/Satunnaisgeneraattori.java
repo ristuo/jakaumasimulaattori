@@ -3,11 +3,11 @@
 package ohha.jakaumasimulaattori;
 import java.util.*;
 /**
-*@author Risto Tuomainen
+*
 * Luokkaan on koottu erilaisia satunnaismuuttujia generoivat metodit. Metodeilla
 * voi generoida Bernoulli, normaali, poisson, gamma tai eksponenttijakaumia
 * seuraavia satunnaismuuttujia.
-* 
+* @author Risto Tuomainen
 */
 public class Satunnaisgeneraattori {
 
@@ -72,7 +72,7 @@ public class Satunnaisgeneraattori {
     
     
     /**
-    * metodi laskee normaaln tiheysfunktion arvon.
+    * Metodi laskee normaaln tiheysfunktion arvon kohdassa x.
     * @param myy jakauman odotusarvo
     * @param sigma jakauman varianssi neliöjuuri
     * @param muuttujan x arvo
@@ -153,7 +153,7 @@ public class Satunnaisgeneraattori {
      * 
      * @param x0 on mikä tahansa double-tyyppinen luku. x0 on jakauman ns. sijaintiparametri.
      * @param gamma on positiivinen double-tyyppinen luku. Gamma on jakauman ns. hajontaparametri.
-     * @return 
+     * @return metodi palauttaa double-tyyppisena cauchy-jakaumaa seuraavan satunnaismuuttujan arvon.
      */    
     public double generoiCauchy(double gamma, double x0) {
         return gamma*Math.tan(Math.PI*(Math.random()-0.5))+x0;  

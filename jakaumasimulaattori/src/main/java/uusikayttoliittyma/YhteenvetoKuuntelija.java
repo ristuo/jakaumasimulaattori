@@ -15,19 +15,20 @@ import ohha.jakaumasimulaattori.*;
  */
 public class YhteenvetoKuuntelija implements ActionListener {
     
-    private JButton piirrahistogrammi;
+    private JButton uusisimu;
     private KehysAsettelija kehysAsettelija;
     private TilastoAineisto tilastoaineisto;
     private Kayttoliittyma kayttis;
     
-    public YhteenvetoKuuntelija(JButton histogrammi, TilastoAineisto tilastoaineisto, Kayttoliittyma kayttis) {
-        this.piirrahistogrammi = histogrammi;
+    public YhteenvetoKuuntelija(JButton uusisimu, TilastoAineisto tilastoaineisto, Kayttoliittyma kayttis) {
+        this.uusisimu = uusisimu;
         this.tilastoaineisto = tilastoaineisto;
         this.kayttis=kayttis;
     }
     
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == piirrahistogrammi)
-            kayttis.luoGraafiIkkuna();
+        if (ae.getSource() == uusisimu)
+            kayttis.sulje();
+            kayttis.run();
     }
 }

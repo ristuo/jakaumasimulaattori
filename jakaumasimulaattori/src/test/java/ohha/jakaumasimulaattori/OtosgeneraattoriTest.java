@@ -104,4 +104,9 @@ public class OtosgeneraattoriTest {
         assertTrue(testi);
     }
     
+    
+    @Test
+    public void onkoCauchyllaOikeaOtoskeskiarvo() {
+        
+    }
 }

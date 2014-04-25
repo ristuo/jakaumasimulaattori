@@ -2,19 +2,12 @@
 
 package uusikayttoliittyma;
 import ohha.jakaumasimulaattori.*;
-import java.util.*;
 import java.awt.Container;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import javax.swing.WindowConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.*;
-import java.io.*;
-import java.awt.Component;
 import java.awt.Toolkit;
 import java.text.*;
 
@@ -31,8 +24,9 @@ public class KehysAsettelija {
     private JakaumanValintakuuntelija jakaumanValintakuuntelija;
     private ParametrienValintakuuntelija parametrienValintakuuntelija;
     private TilastoAineisto tilastoaineisto;
+    private NumberFormat nf = NumberFormat.getInstance();  
     private TunnuslukuLaskuri tunnuslukulaskuri = new TunnuslukuLaskuri();
-    private NumberFormat nf = NumberFormat.getInstance();        
+
 
     public KehysAsettelija(Kayttoliittyma kayttoliittyma, JFrame jakaumanValintakehys) {
         this.kayttoliittyma=kayttoliittyma;
@@ -163,61 +157,47 @@ public class KehysAsettelija {
     }
     
     public void luoRaporttiKehys(JFrame raporttiKehys) {
+        
         Container container = raporttiKehys.getContentPane();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         JTextArea tulostus = new JTextArea();
-
+        JButton uusisimu = new JButton("Simuloi uusi jakauma");
+        
+        YhteenvetoKuuntelija yhteenvetoKuuntelija = new YhteenvetoKuuntelija(uusisimu, tilastoaineisto, kayttoliittyma);
+        uusisimu.addActionListener(yhteenvetoKuuntelija);
+        
+        try {
+            tulostus.append("Jakauman odotusarvo: " + nf.format(tilastoaineisto.getOdotusarvo()) + "\n");
+        }
+        
+        catch (Exception e) {
+            tulostus.append("Jakauman odotusarvo: Cauchy-jakaumalla ei ole odotusarvoa. \n");
+        }
+        tulostus.append("Jakauman otoskeskiarvo: " + nf.format(tilastoaineisto.getOtoskeskiarvo()) + "\n");
+        
+        try {
+            tulostus.append("Jakauman keskihajonta: " + nf.format(tilastoaineisto.getKeskihajonta())+ "\n");
+        }
+        
+        catch (Exception e) {
+            tulostus.append("Jakauman keskihajonta: Cauchy-jakaumalla ei ole keskihajontaa \n");
+        }
+        tulostus.append("Jakauman otoskeskiarvo: " + nf.format(tilastoaineisto.getOtoskeskihajonta()) + "\n");
         
         
         if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.NORMAALI) {
-            tulostus.append("Jakauman odotusarvo: " + parametrienValintakuuntelija.getGeneroidunJakaumanparametri1() + "\n");
-            tulostus.append(tulostaKeskiarvoTextAreaan(tilastoaineisto) + "\n");
-            tulostus.append("Jakauman keskihajonta: " + parametrienValintakuuntelija.getGeneroidunJakaumanparametri2() + "\n");
-            tulostus.append("Otoskeskihajonta: "+nf.format(tunnuslukulaskuri.laskeOtoskeskihajonta(tilastoaineisto)) + "\n");
-            tulostus.append("T-testisuure: " + nf.format(tunnuslukulaskuri.laskeTtestisuure(tilastoaineisto, parametrienValintakuuntelija.getGeneroidunJakaumanparametri1())));
+ 
+            tulostus.append("T-testisuure hypoteesille, että odotusarvo poikkeaa todellisesta arvosta: " + nf.format(tunnuslukulaskuri.laskeTtestisuure(tilastoaineisto, parametrienValintakuuntelija.getGeneroidunJakaumanparametri1())));
         }
         
-        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.EKSPONENTTI) {
-            tulostus.append("Jakauman odotusarvo: " + nf.format(1/parametrienValintakuuntelija.getGeneroidunJakaumanparametri1()) + "\n");
-            tulostus.append(tulostaKeskiarvoTextAreaan(tilastoaineisto) + "\n");
-            tulostus.append("Jakauman keskihajonta: " + nf.format(1/parametrienValintakuuntelija.getGeneroidunJakaumanparametri1())+ "\n");
-            tulostus.append("Jakauman otoskeskihajonta: " + tulostaOtoskeskihajontaTextAreaan(tilastoaineisto) );
-        }
-        
-        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.GAMMA) {
-            tulostus.append("Jakauman odotusarvo: " + nf.format(parametrienValintakuuntelija.getGeneroidunJakaumanparametri1()/parametrienValintakuuntelija.getGeneroidunJakaumanparametri2()) + "\n");
-            
-        
-        }
-        
-        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.BINOMI) {
-            
-        }
-        
-        if (jakaumanValintakuuntelija.getValittuJakauma()==Jakauma.POISSON) {
-            
-        }
-        
-        if (jakaumanValintakuuntelija.getValittuJakauma() == Jakauma.POISSON) {
-            tulostus.append("Jakauman odotusarvo: " + parametrienValintakuuntelija.getGeneroidunJakaumanparametri1() + "\n");
-            tulostus.append(tulostaKeskiarvoTextAreaan(tilastoaineisto) + "\n");
-            tulostus.append("Jakauman keskihajonta: " + Math.sqrt(parametrienValintakuuntelija.getGeneroidunJakaumanparametri1()));
-            tulostus.append(tulostaOtoskeskihajontaTextAreaan(tilastoaineisto) + "\n");
-        }
-         
-   
+
+        tulostus.setSize(new Dimension(raporttiKehys.getWidth()-25,raporttiKehys.getHeight() -20));
         container.add(tulostus);
-    
+        container.add(uusisimu);
+        
         kayttoliittyma.luoGraafiIkkuna();
     }
-    
-    private String tulostaKeskiarvoTextAreaan(TilastoAineisto tilastoaineisto) {
-        return "Keskiarvo: " + nf.format(tunnuslukulaskuri.laskeKeskiarvo(tilastoaineisto));
-    }
-    
-    private String tulostaOtoskeskihajontaTextAreaan(TilastoAineisto tilastoaineisto) {
-        return "Otoskeskihajonta: " + nf.format(tunnuslukulaskuri.laskeOtoskeskihajonta(tilastoaineisto));
-    }
+ 
     
     
     

@@ -35,6 +35,10 @@ public class Kayttoliittyma implements Runnable {
         jakaumanValintakehys.setSize(501,600);
     }
     
+    public void sulje() {
+        graafiIkkuna.dispose();
+        jakaumanValintakehys.dispose();
+    }
   
     public void siirryYhteenvetoIkkunaan() {
         jakaumanValintakehys.getContentPane().removeAll();

@@ -1,4 +1,4 @@
-
+    
 package ohha.jakaumasimulaattori;
 
 import org.junit.After;

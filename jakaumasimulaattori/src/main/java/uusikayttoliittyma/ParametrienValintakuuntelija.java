@@ -16,12 +16,14 @@ import java.io.*;
 import java.awt.Component;
 import java.awt.event.*;
 
-public class ParametrienValintakuuntelija implements ActionListener {
-    
-    /**
+
+     /**
      * Luokan tarkoituksena on seurata käyttäjän toimintaa parametrivalikon, 
      * tiedostonvalinnan ja "generoi jakauma" nappulan suhteen.
      */
+public class ParametrienValintakuuntelija implements ActionListener {
+    
+    
     
     
     private Otosgeneraattori otosgeneraattori = new Otosgeneraattori();
@@ -255,7 +257,7 @@ public class ParametrienValintakuuntelija implements ActionListener {
                 }
                 catch (Exception e) {
                     gamma.setBackground(Color.red);
-                    return;
+                    
                 }
                 
                 try {
@@ -280,19 +282,22 @@ public class ParametrienValintakuuntelija implements ActionListener {
                 return;
             }
             
-            try {
+            if (onkoTiedostoa) {
+                try {
                 
-                tiedostonKasittelija.tulostaAineistoTiedostoonCSV(tallennustiedosto, aineisto);
-                kehysAsettelija.setAineisto(aineisto);
-                kehysAsettelija.siirryYhteenvetoIkkunaan();
+                    tiedostonKasittelija.tulostaAineistoTiedostoonCSV(tallennustiedosto, aineisto);
+
                 
+                }
+            
+                catch (Exception e) {
+                    //System.out.println("virhe on täällä");
+                    kehysAsettelija.virhe();
+                }
             }
             
-            catch (Exception e) {
-                //System.out.println("virhe on täällä");
-                kehysAsettelija.virhe();
-            }
-            
+           kehysAsettelija.setAineisto(aineisto);
+           kehysAsettelija.siirryYhteenvetoIkkunaan();
         }
     }
     
@@ -370,6 +375,7 @@ public class ParametrienValintakuuntelija implements ActionListener {
         this.n.setBackground(Color.white);
         this.p.setBackground(Color.white);
         this.otoskoko.setBackground(Color.white);
+        this.gamma.setBackground(Color.white);
     }
     
     public void nollaaKaikkiParametrivalikot() {
