@@ -52,10 +52,11 @@ to 10.4. 2h täydensin hieman jakaumavalikoimaa esim. poisson-jakaumalla
 
 pe 11.4. 4h lueskelin piirtämisestä javalla, kokeilin valmiita graafinpiirtopaketteja (joita en saanut toimimaan) ja aloitin histogrammin piirtometodia
 
+su 13.4. 6h tein histogrammin piirtometodia
 
-
-
+ti 15.4. 3h tein sekalaisia asioita kuten jadocsia yms
 
 21.4. 5h korjailin bugeja, tein käppyräjärjestelmää
 23.4. 2h tein dokumentaatiota yms
 24.4. 5h yriten piirtaa teoreettisia jakaumia kuviin, en onnistunut
+25.4. 3h tein dokumentaatiota ja viimeistelin kansiota

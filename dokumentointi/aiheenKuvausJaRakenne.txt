@@ -8,4 +8,7 @@ Käyttäjät:
 Ohjelmalla on täsmälleen yksi käyttäjä, joten kirjautumistoimintoa tai vastaavaa ei tarvitse toteuttaa.
 
 Ohjelman rakenne
+Ohjelman toimintalogiikka on verrattain yksinkertainen. Otosgeneraattoriluokka käyttää Satunnaisgeneraattori-luokkaa luodakseen otoksen sisältävän taulukon ja kapseloi sen TilastoAineisto-luokan olioksi. Tilastoaineistoluokan olemassaolon avulla muualla ohjelmassa ei tarvitse pitää kirjaa esim. siitä mikä jakauma milloinkin on kyseessä, koska aineisto itse tuntee jakaumatyyppinsä. Tunnuslukulaskuri-luokka sisältää metodeja tunnuslukujen laskemista varten.
 
+Sen sijaan käyttöliittymän rakenne on sotkuisampi. Kayttoliittyma-luokka vastaa ohjelman vaatimien ikkunoiden hallinnoimisesta. Kehysasettelija-luokka taas luo ikkunoiden sisällöt, poikkeuksena graafin sisältävä ikkuna joka on kokonaan oma luokkansa. ActionListener-rajapinnan toteuttavat luokat vastaavat käyttäjän haluamien toimenpiteiden toteuttamisesta ohjelmalogiikkaluokkien avulla.
+ 
