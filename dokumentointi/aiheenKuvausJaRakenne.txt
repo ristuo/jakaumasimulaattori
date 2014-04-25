@@ -1,0 +1,11 @@
+Aiheen kuvaus
+Jakaumasimulaattori-ohjelman tarkoituksena on simuloida otoksia erilaisista todennäköisyysjakaumista ja tulostaa näin luotuja aineistoja .csv formaatissa tiedostoiksi. Käyttäjä voi käyttöliittymässä valita haluamansa jakauman valikosta sekä ilmoittaa halutut parametrit ja tiedoston johon aineisto tulostuu. 
+
+Lisäksi ohjelma tulostaa erilaisia aineistosta laskettuja tunnuslukuja sekä jakaumaa kuvaavan graafin (diskreetin jakauman tapauksessa pylväskuvan, jatkuvassa tapauksessa histogrammin).
+
+Käyttäjät:
+
+Ohjelmalla on täsmälleen yksi käyttäjä, joten kirjautumistoimintoa tai vastaavaa ei tarvitse toteuttaa.
+
+Ohjelman rakenne
+

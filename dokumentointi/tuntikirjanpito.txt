@@ -1,0 +1,61 @@
+#Tuntikirjanpito: 
+
+ti 11.3. 1h, yritin saada githubia toimimaan laitoksen koneella 
+
+ke 12.3. 2h, yritin edelleen saada githubia toimimaan laitoksella
+
+to 13.3. 1,5h luovutin ja aloin asentaa asioita kotikoneelle (menestyksellisesti)
+
+to 13.3. 1h kirjoitin aihemäärittelyn
+
+pe 14.3. 1h kirjoitin ohjelman alkua
+
+su 16.3. 30min kirjoitin lisää ohjelmaa ja pohdin luokkia
+
+ti 18.3. 1h kirjoitin ensimmaisia testeja, korjasin satunnaisgeneraattoria
+
+ke 19.3. 2.5h kirjoitin lisää testejä, tein normaalijakaumageneraattorin
+
+ke 19.3. 1.5h testailin toimintoja, virittelin koodia ja kirjoitin hieman uutta
+
+
+
+la 22.3. 2,5h kirjoitin hieman uutta tekstia, aloitin käyttöliittymää, lannistuin ja aloin lukemaan kirjaa joka kertoo miten tehdä käyttöliittymä, sekä korjasin pieniä ongelmia koodissa
+
+ma 24.3. 5h aloitin käyttöliittymän tekemistä
+
+ti 25.3. 1h luin käyttöliittymän tekemiseen liittyvää kirjaa
+
+ke 26.3. 2h poistin siihen asti tekemäni käyttöliittymän ja aloitin uudestaan
+
+ma 31.3. 1,5h kirjoitin käyttöliittymää, paremmalla menestyksellä tällä kertaa
+
+ti 1.4. 3h kirjoitin käyttöliittymää, luulo menestyksestä osoittautui virheelliseksi ja aloitin uudestaan alusta.
+
+ke 2.4. 5h kirjoitin lisää käyttöliittymää, joka selviää tähän asti ylivoimaisista ongelmista
+
+ke 2.4. 1,5 kirjoitin käyttöliittymää. ohjelman perustoiminnallisuus toimii olennaisilta osin GUI:n kautta
+
+ke 2.4. 1h tutkailin javadoc-hommia ja aloitin niitä. kirjoitin vähän käyttöliittymää
+
+ke 2.4. 40 min kirjoitin javadocseja.
+
+to 3.4. 1,5h tein sekvenssikaaviota, kävin skannaamassa sen, ja päivittelin githubbia sekä korjailin vähän koodia, mm. poistamalla vanhan käyttöliittymän
+
+pe 4.4. 3h tein virheidenkäsittelyjärjestelmän, tuli hyvä.
+
+la 5.4. 2h ihmettelin miten laajentaisin ohjelmaa
+
+su 6.4. 5h ajattelin laajentaa ohjelmaa pokeritodennäköisyyksien simulointiin, aloitin koodaamista. Lopuksi hylkäsin ajatuksen
+
+to 10.4. 2h täydensin hieman jakaumavalikoimaa esim. poisson-jakaumalla
+
+pe 11.4. 4h lueskelin piirtämisestä javalla, kokeilin valmiita graafinpiirtopaketteja (joita en saanut toimimaan) ja aloitin histogrammin piirtometodia
+
+
+
+
+
+21.4. 5h korjailin bugeja, tein käppyräjärjestelmää
+23.4. 2h tein dokumentaatiota yms
+24.4. 5h yriten piirtaa teoreettisia jakaumia kuviin, en onnistunut
